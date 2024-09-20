@@ -66,9 +66,6 @@ public class _2_pass_assembler {
             new Mnemonic("AREG", 1, "REG"), new Mnemonic("BREG", 2, "REG"),
             new Mnemonic("CREG", 3, "REG")
     };
-//    private Mnemonic[] mnemonics = {
-//
-//    };
 
     public _2_pass_assembler(){
         try{
@@ -78,6 +75,15 @@ public class _2_pass_assembler {
         } catch (Exception e){
             System.out.println(e.getLocalizedMessage());
         }
+    }
+
+    public Mnemonic getREG(String line){
+        for(int x = 0; x < REGs.length; x++){
+            if(line.contains(REGs[x].name)){
+                return new Mnemonic(REGs[x].name, REGs[x].code, REGs[x].mClass);
+            }
+        }
+        return  null;
     }
 
     public Mnemonic hasAD(String line){      // assembler directive.
@@ -93,21 +99,20 @@ public class _2_pass_assembler {
     public void processAD(Mnemonic mnemonic, String line) throws IOException{
         if(mnemonic.name.equals("START")){
             loc_cnt = Integer.parseInt(line.substring(14, line.length()));
-            writer.write("(" + mnemonic.mClass + "," + mnemonic.code + ") (C" + loc_cnt + ")\n");
-            loc_cnt++;
+            writer.write("(AD,0" + mnemonic.code + ") (C," + loc_cnt + ")\n");
         }
         else if(mnemonic.name.equals("END")){
-            return;
+            writer.write("(AD,0" + mnemonic.code + ")\n");
         }
         else if(mnemonic.name.equals("ORIGIN")){
-//            loc_cnt = Integer.parseInt()
+            //* Implementation is not provided. *//
         }
         else if(mnemonic.name.equals("LTORG")){
             for(int x= 0; x < literal_table.size(); x++){
                 LT temp = literal_table.get(x);
                 if(temp.a == 0){
                     temp.a = loc_cnt;
-                    writer.write("(" + mnemonic.mClass + ",0" + mnemonic.code + ") (DL,02) " + "(C," + temp.l + ")\n");
+                    writer.write("(AD,0" + mnemonic.code + ") (DL,02) " + "(C," + temp.l + ")\n");
                     loc_cnt++;
                 }
             }
@@ -116,7 +121,7 @@ public class _2_pass_assembler {
     }
     public Mnemonic hasIS(String line){      // assembler directive.
         Mnemonic ad = null;
-        for(int x= 0; x < ADs.length; x++){
+        for(int x= 0; x < ISs.length; x++){
             if(line.contains(ISs[x].name)){
                 ad = new Mnemonic(ISs[x].name, ISs[x].code, ISs[x].mClass);
                 break;
@@ -134,9 +139,85 @@ public class _2_pass_assembler {
             symbol_table.add(new ST(symbol_table.size(), label, loc_cnt));
         }
         if(mnemonic.name.equals("MOVER")){
-
+            Mnemonic reg = getREG(line);
+            if(line.contains("=")){        // if literal.
+                int idx = line.indexOf("=");
+                int literal = Integer.parseInt(line.substring(idx + 2, idx + 3));
+                LT temp = null;
+                for(int x = 0; x < literal_table.size(); x++){
+                    LT t = literal_table.get(x);
+                    if(t.l == literal){
+                        temp = t;
+                        break;
+                    }
+                }
+                if(temp == null) {      // if literal is not present then only add in table.
+                    LT t = new LT(literal_table.size(), literal, 0);
+                    literal_table.add(t);
+                    temp = t;
+                }
+                writer.write("(IS,0" + mnemonic.code + ") (RG,0" + reg.code + ") (L," + temp.i + ")\n");
+                loc_cnt++;
+            }
+        }
+        else if(mnemonic.name.equals("MOVEM")){
+            Mnemonic reg = getREG(line);
+            String symbol = line.substring(line.indexOf("MOVEM") + 6, line.lastIndexOf(","));
+            ST temp = null;
+            for(int x = 0; x < symbol_table.size(); x++){
+                ST s = symbol_table.get(x);
+                if(s.s.equals(symbol)){
+                    temp = s;
+                    break;
+                }
+            }
+            if(temp == null){
+                ST s = new ST(symbol_table.size(), symbol, 0);
+                symbol_table.add(s);
+                temp = s;
+            }
+            writer.write("(IS,0" + mnemonic.code + ") (S," + temp.i + ") (RG,0" + reg.code + ")\n");
+            loc_cnt++;
+        }
+        else if(mnemonic.name.equals("READ")){
+            String symbol = line.substring(line.indexOf("READ") + 5, line.length());
+            ST temp = null;
+            for(int x = 0; x < symbol_table.size(); x++){
+                ST s = symbol_table.get(x);
+                if(s.s.equals(symbol)){
+                    temp = s;
+                    break;
+                }
+            }
+            if(temp == null){
+                ST s = new ST(symbol_table.size(), symbol, 0);
+                symbol_table.add(s);
+                temp = s;
+            }
+            writer.write("(IS,0" + mnemonic.code + ") (S," + temp.i + ")\n");
+            loc_cnt++;
+        }
+        else if(mnemonic.name.equals("MULT")){
+            Mnemonic reg = getREG(line);
+            String symbol = line.substring(line.indexOf(",") + 2, line.length());
+            ST temp = null;
+            for(int x = 0; x < symbol_table.size(); x++){
+                ST s = symbol_table.get(x);
+                if(s.s.equals(symbol)){
+                    temp = s;
+                    break;
+                }
+            }
+            if(temp == null){
+                ST s = new ST(symbol_table.size(), symbol, 0);
+                symbol_table.add(s);
+                temp = s;
+            }
+            writer.write("(IS,0" + mnemonic.code + ") (RG,0" + reg.code + ") (S," + temp.i + ")\n");
+            loc_cnt++;
         }
     }
+
     public Mnemonic hasDL(String line){      // assembler directive.
         Mnemonic ad = null;
         for(int x= 0; x < DLs.length; x++){
@@ -147,28 +228,26 @@ public class _2_pass_assembler {
         }
         return ad;
     }
-    public void processDL(Mnemonic temp, String line) throws IOException{
-
+    public void processDL(Mnemonic mnemonic, String line) throws IOException{
+        if(mnemonic.name.equals("DS")){
+            String symbol = "";
+            ST temp = null;
+            for(int x = 4; line.charAt(x) != ' '; x++){
+                symbol += line.charAt(x);
+            }
+            for(int x = 0; x < symbol_table.size(); x++){
+                ST s = symbol_table.get(x);
+                if(s.s.equals(symbol)){
+                    temp = s;
+                    break;
+                }
+            }
+            temp.a = loc_cnt;
+            String cons = line.substring(line.indexOf("DS") + 4, line.length());
+            writer.write("(S," + temp.i + ") (DS,0" + mnemonic.code + ") (C," + cons + ")\n");
+            loc_cnt++;
+        }
     }
-
-//    public void processMnemonic(Mnemonic mnemonic){
-//
-//    }
-//
-//    public Mnemonic findMnemonic(String line){
-//        Mnemonic result = null;
-//        for(int x = 0; x < ADs.length; x++){
-//            if(line.contains(ADs[x].name)){
-//                result = new Mnemonic(ADs[x].name, ADs[x].code, ADs[x].mClass);
-//                break;
-//            }
-//        }
-//        return result;
-//    }
-
-//    public Mnemonic hasIS(String line){
-//
-//    }
 
     public static void main(String[] args) {
         _2_pass_assembler assembler = new _2_pass_assembler();
@@ -190,12 +269,39 @@ public class _2_pass_assembler {
                 else{
                     System.out.println("Invalid statement.");
                     System.out.println("Terminating the pass-1 process");
+                    System.out.println("Location counter: " + assembler.loc_cnt);
                     break;
                 }
-                assembler.reader.close();
-                assembler.writer.close();
             }
+            System.out.println();
+
+            // printing the symbol table.
+            System.out.println("Symbol Table");
+            for(int x = 0; x < assembler.symbol_table.size(); x++){
+                ST temp = assembler.symbol_table.get(x);
+                System.out.println(temp.i + "   " + "   " + temp.s + "  " + temp.a);
+            }
+            System.out.println();
+
+            // printing the literal table.
+            System.out.println("Symbol Table");
+            for(int x = 0; x < assembler.literal_table.size(); x++){
+                LT temp = assembler.literal_table.get(x);
+                System.out.println(temp.i + "   " + "   " + temp.l + "  " + temp.a);
+            }
+            System.out.println();
+
+            // printing the pool table.
+            System.out.println("Pool Table");
+            for(int x = 0; x < assembler.pool_table.size(); x++){
+                PT temp = assembler.pool_table.get(x);
+                System.out.println(temp.count);
+            }
+
+            assembler.reader.close();
+            assembler.writer.close();
         } catch (Exception e){
+            System.out.println("Location counter: " + (assembler.loc_cnt + 1));
             System.out.println(e.getLocalizedMessage());
         }
 

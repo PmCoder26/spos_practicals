@@ -1,13 +1,12 @@
         START 100
         READ N
         MOVER BREG, ='1'
-        MOVEM BREG, TERM
-    A   MULT B, TERM
+        MOVEM TERM, BREG
+    A   MULT BREG, TERM
         LTORG
         MOVER CREG, ='2'
-        MOVEM BREG, ='5'
+        MOVER BREG, ='5'
         LTORG
-
     N   DS  1
     TERM   DS  1
         END
