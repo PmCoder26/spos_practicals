@@ -84,6 +84,7 @@ public class _2_pass_assembler {
     public _2_pass_assembler() throws IOException {
         collection = new ReaderWriterCollection();
     }
+    // ************************************************** Pass-1 *******************************************************
 
     public Mnemonic getREG(String line){
         for(int x = 0; x < REGs.length; x++){
@@ -112,9 +113,6 @@ public class _2_pass_assembler {
         else if(mnemonic.name.equals("END")){
             writer.write("(AD,0" + mnemonic.code + ")\n");
         }
-        else if(mnemonic.name.equals("ORIGIN")){
-            //* Implementation is not provided. *//
-        }
         else if(mnemonic.name.equals("LTORG")){
             for(int x= 0; x < literal_table.size(); x++){
                 LT temp = literal_table.get(x);
@@ -127,6 +125,7 @@ public class _2_pass_assembler {
             pool_table.add(new PT(literal_table.size()));
         }
     }
+
     public Mnemonic hasIS(String line){      // assembler directive.
         Mnemonic ad = null;
         for(int x= 0; x < ISs.length; x++){
@@ -291,7 +290,7 @@ public class _2_pass_assembler {
             System.out.println();
 
             // printing the literal table.
-            System.out.println("Symbol Table");
+            System.out.println("Literal Table");
             for(int x = 0; x < literal_table.size(); x++){
                 LT temp = literal_table.get(x);
                 System.out.println(temp.i + "   " + "   " + temp.l + "  " + temp.a);
@@ -314,22 +313,68 @@ public class _2_pass_assembler {
         }
     }
 
+    public boolean isPass1Done(){
+        return isDonePass1;
+    }
+    // *****************************************************************************************************************
+
+    // ************************************************** Pass-2 *******************************************************
+
     public void startPass_2(){
+        int lineNo = 1;
         try{
             reader = collection.pass2Reader;
             writer = collection.pass2Writer;
             String line = "";
             while((line = reader.readLine()) != null){
-
+                if(line.contains("AD")){
+                    String code = line.substring(4, 6);
+                    if(code.equals("01")){     // not START
+                        writer.write("\n");
+                    }
+                    else if(code.equals("05")){
+                        writer.write("(00) (00) (00" + line.substring(line.lastIndexOf(",") + 1, line.lastIndexOf(")")) + ")\n");
+                    }
+                    else if(code.equals("02")){
+                        writer.write("\n");
+                    }
+                }
+                else if(line.contains("IS")){
+                    String code = line.substring(4, 6);
+                    String temp = "(" + code + ") ";
+                    if(line.contains("RG")){
+                        temp += "(" + line.substring(line.indexOf("RG") + 3, line.indexOf("RG") + 5) + ") ";
+                    }
+                    int address = -1;
+                    if(line.contains("(L")){
+                        String literalIdx = line.substring(line.indexOf("(L,") + 3, line.indexOf("(L,") + 4);
+                         address = literal_table.get(Integer.parseInt(literalIdx)).a;
+                    }
+                    else if(line.contains("(S,")){
+                        if(code.equals("09")){
+                            temp += "(00) ";
+                        }
+                        String symbolIdx = line.substring(line.indexOf("(S,") + 3, line.indexOf("(S,") + 4);
+                        address = symbol_table.get(Integer.parseInt(symbolIdx)).a;
+                    }
+                    if(address != -1){
+                        temp += "(" + address + ")";
+                        writer.write(temp + "\n");
+                    }
+                    else{
+                        System.out.println("Error while processing line: " + line);
+                        break;
+                    }
+                }
+                lineNo++;
             }
 
+            reader.close();
+            writer.close();
         } catch (Exception e){
+            System.out.println("Line number: " + lineNo);
             System.out.println(e.getLocalizedMessage());
         }
-    }
-
-    public boolean isPass1Done(){
-        return isDonePass1;
     }
 
     public static void main(String[] args) throws IOException {
@@ -341,6 +386,5 @@ public class _2_pass_assembler {
         else{
             System.out.println("Unable to start pass-2");
         }
-
     }
 }
