@@ -39,13 +39,27 @@ public class _2_pass_assembler {
             this.mClass = mClass;
         }
     }
+    static class ReaderWriterCollection{
+        public BufferedWriter pass1Writer;
+        public BufferedReader pass1Reader;
+        public BufferedWriter pass2Writer;
+        public BufferedReader pass2Reader;
+        public ReaderWriterCollection() throws IOException {
+            pass1Writer = new BufferedWriter(new FileWriter(new File("/Users/parimal/SPOS_Assignments/src/pass_1_output_assembler.txt")));
+            pass1Reader = new BufferedReader(new FileReader(new File("/Users/parimal/SPOS_Assignments/src/pass_1_input_assembler.txt")));
+            pass2Writer = new BufferedWriter(new FileWriter(new File("/Users/parimal/SPOS_Assignments/src/pass_2_output_assembler.txt")));
+            pass2Reader = new BufferedReader(new FileReader(new File("/Users/parimal/SPOS_Assignments/src/pass_1_output_assembler.txt")));
+        }
+    }
 
-    public static BufferedReader reader;
-    public static BufferedWriter writer;
+    private BufferedReader reader;
+    private BufferedWriter writer;
+    private ReaderWriterCollection collection;
     private ArrayList<ST> symbol_table = new ArrayList<>();
     private ArrayList<LT> literal_table = new ArrayList<>();
     private ArrayList<PT> pool_table = new ArrayList<>();
     private int loc_cnt = -1;
+    private boolean isDonePass1 = false;
 
     private static Mnemonic[] ADs = {
             new Mnemonic("START", 1, "AD"), new Mnemonic("END", 2, "AD"),
@@ -67,14 +81,8 @@ public class _2_pass_assembler {
             new Mnemonic("CREG", 3, "REG")
     };
 
-    public _2_pass_assembler(){
-        try{
-            reader = new BufferedReader(new FileReader(new File("/Users/parimal/SPOS_Assignments/src/pass_1_input_assembler.txt")));
-            writer = new BufferedWriter(new FileWriter(new File("/Users/parimal/SPOS_Assignments/src/pass_1_output_assembler.txt")));
-            pool_table.add(new PT(0));      // initially the processed literals count is zero.
-        } catch (Exception e){
-            System.out.println(e.getLocalizedMessage());
-        }
+    public _2_pass_assembler() throws IOException {
+        collection = new ReaderWriterCollection();
     }
 
     public Mnemonic getREG(String line){
@@ -249,27 +257,26 @@ public class _2_pass_assembler {
         }
     }
 
-    public static void main(String[] args) {
-        _2_pass_assembler assembler = new _2_pass_assembler();
-
-        String line = "";
-
+    public void startPass_1(){
         try {
-            while ((line = assembler.reader.readLine()) != null) {
+            reader = collection.pass1Reader;
+            writer = collection.pass1Writer;
+            String line = "";
+            while ((line = reader.readLine()) != null) {
                 Mnemonic mnemonic = null;
-                if((mnemonic = assembler.hasAD(line)) != null){
-                    assembler.processAD(mnemonic, line);
+                if((mnemonic = hasAD(line)) != null){
+                    processAD(mnemonic, line);
                 }
-                else if((mnemonic = assembler.hasIS(line)) != null){
-                    assembler.processIS(mnemonic, line);
+                else if((mnemonic = hasIS(line)) != null){
+                    processIS(mnemonic, line);
                 }
-                else if((mnemonic = assembler.hasDL(line)) != null){
-                    assembler.processDL(mnemonic, line);
+                else if((mnemonic = hasDL(line)) != null){
+                    processDL(mnemonic, line);
                 }
                 else{
                     System.out.println("Invalid statement.");
                     System.out.println("Terminating the pass-1 process");
-                    System.out.println("Location counter: " + assembler.loc_cnt);
+                    System.out.println("Location counter: " + loc_cnt);
                     break;
                 }
             }
@@ -277,32 +284,62 @@ public class _2_pass_assembler {
 
             // printing the symbol table.
             System.out.println("Symbol Table");
-            for(int x = 0; x < assembler.symbol_table.size(); x++){
-                ST temp = assembler.symbol_table.get(x);
+            for(int x = 0; x < symbol_table.size(); x++){
+                ST temp = symbol_table.get(x);
                 System.out.println(temp.i + "   " + "   " + temp.s + "  " + temp.a);
             }
             System.out.println();
 
             // printing the literal table.
             System.out.println("Symbol Table");
-            for(int x = 0; x < assembler.literal_table.size(); x++){
-                LT temp = assembler.literal_table.get(x);
+            for(int x = 0; x < literal_table.size(); x++){
+                LT temp = literal_table.get(x);
                 System.out.println(temp.i + "   " + "   " + temp.l + "  " + temp.a);
             }
             System.out.println();
 
             // printing the pool table.
             System.out.println("Pool Table");
-            for(int x = 0; x < assembler.pool_table.size(); x++){
-                PT temp = assembler.pool_table.get(x);
+            for(int x = 0; x < pool_table.size(); x++){
+                PT temp = pool_table.get(x);
                 System.out.println(temp.count);
             }
 
-            assembler.reader.close();
-            assembler.writer.close();
+            reader.close();
+            writer.close();
+            isDonePass1 = true;
         } catch (Exception e){
-            System.out.println("Location counter: " + (assembler.loc_cnt + 1));
+            System.out.println("Location counter: " + (loc_cnt + 1));
             System.out.println(e.getLocalizedMessage());
+        }
+    }
+
+    public void startPass_2(){
+        try{
+            reader = collection.pass2Reader;
+            writer = collection.pass2Writer;
+            String line = "";
+            while((line = reader.readLine()) != null){
+
+            }
+
+        } catch (Exception e){
+            System.out.println(e.getLocalizedMessage());
+        }
+    }
+
+    public boolean isPass1Done(){
+        return isDonePass1;
+    }
+
+    public static void main(String[] args) throws IOException {
+        _2_pass_assembler assembler = new _2_pass_assembler();
+        assembler.startPass_1();
+        if(assembler.isPass1Done()){
+            assembler.startPass_2();
+        }
+        else{
+            System.out.println("Unable to start pass-2");
         }
 
     }
