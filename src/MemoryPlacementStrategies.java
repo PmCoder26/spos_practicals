@@ -2,7 +2,7 @@ import java.util.*;
 
 public class MemoryPlacementStrategies {
 
-    private static Scanner sc = new Scanner(System.in);
+    private static final Scanner sc = new Scanner(System.in);
 
     private static class Process {
         int id;
@@ -22,8 +22,7 @@ public class MemoryPlacementStrategies {
         }
 
         public void printProcesses(){
-            for(int x = 0; x < processes.size(); x++){
-                Process process = processes.get(x);
+            for (Process process : processes) {
                 System.out.println("Id: " + process.id + ", Memory: " + process.memory);
             }
         }
@@ -70,11 +69,9 @@ public class MemoryPlacementStrategies {
 
     private static class FirstFit extends CommonUtils {
         public void applyAlgorithm(){
-            for(int x = 0; x < processes.size(); x++){
-                Process process = processes.get(x);
-                for(int y = 0; y < blocks.size(); y++){
-                    Block block = blocks.get(y);
-                    if(block.memory >= process.memory){
+            for (Process process : processes) {
+                for (Block block : blocks) {
+                    if (block.memory >= process.memory) {
                         block.addProcess(process);
                         block.memory = block.memory - process.memory;
                         break;
@@ -87,18 +84,17 @@ public class MemoryPlacementStrategies {
     private static class NextFit extends CommonUtils {
         public void applyAlgorithm(){
             int idx = 0;
-            for(int x = 0; x < processes.size(); x++){
-                Process process = processes.get(x);
-                for(int y = idx; y < blocks.size(); y++){
+            for (Process process : processes) {
+                for (int y = idx; y < blocks.size(); y++) {
                     Block block = blocks.get(y);
-                    if(block.memory >= process.memory){
+                    if (block.memory >= process.memory) {
                         block.addProcess(process);
                         block.memory = block.memory - process.memory;
                         idx = y;
                         break;
                     }
                 }
-                if(idx == blocks.size() - 1){
+                if (idx == blocks.size() - 1) {
                     idx = 0;
                 }
             }
@@ -107,18 +103,17 @@ public class MemoryPlacementStrategies {
 
     private static class BestFit extends CommonUtils {
         public void applyAlgorithm(){
-            for(int x = 0; x < processes.size(); x++){
-                Process process = processes.get(x);
+            for (Process process : processes) {
                 int minMemory = Integer.MAX_VALUE;
                 int minMemoryIdx = -1;
-                for(int y = 0; y < blocks.size(); y++){
+                for (int y = 0; y < blocks.size(); y++) {
                     Block block = blocks.get(y);
-                    if(minMemory > block.memory && block.memory >= process.memory){
+                    if (minMemory > block.memory && block.memory >= process.memory) {
                         minMemory = block.memory;
                         minMemoryIdx = y;
                     }
                 }
-                if(minMemoryIdx != -1){
+                if (minMemoryIdx != -1) {
                     Block block = blocks.get(minMemoryIdx);
                     block.addProcess(process);
                     block.memory = block.memory - process.memory;
@@ -129,18 +124,17 @@ public class MemoryPlacementStrategies {
 
     private static class WorstFit extends CommonUtils {
         public void applyAlgorithm(){
-            for(int x = 0; x < processes.size(); x++){
-                Process process = processes.get(x);
+            for (Process process : processes) {
                 int maxMemory = Integer.MIN_VALUE;
                 int maxMemoryIdx = -1;
-                for(int y = 0; y < blocks.size(); y++){
+                for (int y = 0; y < blocks.size(); y++) {
                     Block block = blocks.get(y);
-                    if(maxMemoryIdx < block.memory && block.memory >= process.memory){
+                    if (maxMemoryIdx < block.memory && block.memory >= process.memory) {
                         maxMemory = block.memory;
                         maxMemoryIdx = y;
                     }
                 }
-                if(maxMemoryIdx != -1){
+                if (maxMemoryIdx != -1) {
                     Block block = blocks.get(maxMemoryIdx);
                     block.addProcess(process);
                     block.memory = block.memory - process.memory;
