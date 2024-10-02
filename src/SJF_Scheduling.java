@@ -78,16 +78,20 @@ public class SJF_Scheduling {
             ArrayList<Process> processesToExecute = getProcessesForExecution(currentTime);
             // get those processes whose burst time is least, and if multiple processes exists of same burst time then
             // sort by arrival time
-            processesToExecute = getProcessesByAt(processesToExecute, processesToExecute.get(0).tempBT);
-            Process process = processesToExecute.get(0);
-            process.tempBT -= TIME_QUANTUM;
-            if(!process.started){
-                process.started = true;
-                process.cpuFirstTime = currentTime;
-            }
-            currentTime += TIME_QUANTUM;
-            if(process.tempBT == 0){
-                process.ct = currentTime;
+            if(!processesToExecute.isEmpty()) {
+                processesToExecute = getProcessesByAt(processesToExecute, processesToExecute.get(0).tempBT);
+                Process process = processesToExecute.get(0);
+                process.tempBT -= TIME_QUANTUM;
+                if (!process.started) {
+                    process.started = true;
+                    process.cpuFirstTime = currentTime;
+                }
+                currentTime += TIME_QUANTUM;
+                if (process.tempBT == 0) {
+                    process.ct = currentTime;
+                }
+            } else{
+                currentTime++;
             }
         }
         for(Process process : processes){
