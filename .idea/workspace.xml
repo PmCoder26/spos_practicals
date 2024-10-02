@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c1b4003c-464b-4b51-8f4d-d8f3d6b862ee" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/SJF_Scheduling.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FCFS_Scheduling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FCFS_Scheduling.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SJF_Scheduling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SJF_Scheduling.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
