@@ -54,12 +54,10 @@ public class FCFS_Scheduling {
 
     private static void showResults() {
         System.out.println("Process\t\tArrival Time\t\tBurst Time\t\tService Time\t\tWaiting Time\t\tTurnAround Time");
-        for(int x = 0; x < processes.size(); x++){
-            Process process = processes.get(x);
+        for (Process process : processes) {
             System.out.println(process.index + "\t\t\t\t" + process.at + "\t\t\t\t" + process.bt + "\t\t\t\t" + process.st + "\t\t\t\t" + process.wt + "\t\t\t\t" + process.tat);
         }
     }
-
 
     public static void main(String[] args) {
 
