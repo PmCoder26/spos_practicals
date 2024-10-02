@@ -81,7 +81,8 @@ public class SJF_Scheduling {
             if(!processesToExecute.isEmpty()) {
                 processesToExecute = getProcessesByAt(processesToExecute, processesToExecute.get(0).tempBT);
                 Process process = processesToExecute.get(0);
-                process.tempBT -= TIME_QUANTUM;
+                if(process.tempBT >= TIME_QUANTUM) process.tempBT -= TIME_QUANTUM;
+                else process.tempBT = 0;
                 if (!process.started) {
                     process.started = true;
                     process.cpuFirstTime = currentTime;
