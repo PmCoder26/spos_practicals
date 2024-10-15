@@ -4,7 +4,7 @@ public class PageReplacementAlogs {
 
     private static Scanner sc = new Scanner(System.in);
 
-    static abstract class CommonUtils{
+    static abstract class CommonUtils {
         protected int[][] result;
         protected LinkedList<Integer> pagesReference;
         protected int hits;
@@ -44,7 +44,7 @@ public class PageReplacementAlogs {
         }
     }
 
-    static class FIFO extends CommonUtils{
+    static class FIFO extends CommonUtils {
         private Queue<Integer> numQueue;
 
         public FIFO(){
@@ -95,7 +95,7 @@ public class PageReplacementAlogs {
         }
     }
 
-    static class LRU extends CommonUtils{
+    static class LRU extends CommonUtils {
         private Deque<Integer> pageSequenceRecord;
 
         public LRU(){
@@ -148,19 +148,76 @@ public class PageReplacementAlogs {
                         result[x][j] = result[x][j-1];
                     }
                 }
-                System.out.println(pageSequenceRecord.stream().toList());
+            }
+        }
+    }
+
+    static class OPT extends CommonUtils {
+
+        @Override
+        public void performAlgorithm() {
+            int j = 0;
+            while(!pagesReference.isEmpty()) {
+                int num = pagesReference.remove();
+                boolean isFault = true;
+                boolean isInserted = false;
+                for (int x = 0; x < result.length; x++) {
+                    if (result[x][j] == -1) {
+                        isFault = true;
+                        faults++;
+                        result[x][j] = num;
+                        isInserted = true;
+                        break;
+                    } else if (result[x][j] == num) {
+                        isFault = false;
+                        hits++;
+                        break;
+                    }
+                }
+                if (isFault && !isInserted) {
+                    int maxPageRefEleIdx = -1;
+                    int resultEleIdx = -1;
+                    for (int x = 0; x < result.length; x++) {
+                        int ele = result[x][j];
+                         if(!pagesReference.contains(ele)){
+                             result[x][j] = num;
+                             break;
+                         }
+                         else{
+                             int i = pagesReference.indexOf(ele);
+                             if(maxPageRefEleIdx <= i){
+                                 maxPageRefEleIdx = i;
+                                 resultEleIdx = x;
+                             }
+                        }
+                    }
+                    if(resultEleIdx != -1){
+                        result[resultEleIdx][j] = num;
+                    }
+                    faults++;
+                }
+                j++;
+                if (j < result[0].length) {
+                    for (int x = 0; x < result.length; x++) {
+                        result[x][j] = result[x][j - 1];
+                    }
+                }
             }
         }
     }
 
     public static void main(String[] args){
-        FIFO f = new FIFO();
-        f.performAlgorithm();
-        f.showResult();
+//        FIFO f = new FIFO();
+//        f.performAlgorithm();
+//        f.showResult();
+//
+//        LRU l = new LRU();
+//        l.performAlgorithm();
+//        l.showResult();
 
-        LRU l = new LRU();
-        l.performAlgorithm();
-        l.showResult();
+        OPT o = new OPT();
+        o.performAlgorithm();
+        o.showResult();
 
     }
 
