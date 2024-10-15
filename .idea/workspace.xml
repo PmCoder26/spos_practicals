@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c1b4003c-464b-4b51-8f4d-d8f3d6b862ee" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PageReplacementAlogs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PageReplacementAlogs.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PriorityScheduling.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SJF_Scheduling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SJF_Scheduling.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +52,7 @@
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.PageReplacementAlogs">
+  <component name="RunManager" selected="Application.PriorityScheduling">
     <configuration name="MemoryPlacementStrategies" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="MemoryPlacementStrategies" />
       <module name="SPOS_Assignments" />
@@ -67,6 +67,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="PriorityScheduling" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="PriorityScheduling" />
+      <module name="SPOS_Assignments" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="SJF_Scheduling" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="SJF_Scheduling" />
       <module name="SPOS_Assignments" />
@@ -76,6 +83,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.PriorityScheduling" />
         <item itemvalue="Application.PageReplacementAlogs" />
         <item itemvalue="Application.SJF_Scheduling" />
         <item itemvalue="Application.MemoryPlacementStrategies" />

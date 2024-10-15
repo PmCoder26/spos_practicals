@@ -63,7 +63,7 @@ public class SJF_Scheduling {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    private static boolean shouldStop(){
+    private static boolean shouldStop() {
         return processes.stream()
                 .filter(process ->
                         process.tempBT != 0
