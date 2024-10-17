@@ -34,8 +34,8 @@ public class MemoryPlacementStrategies {
     }
 
     private static class CommonUtils {
-        protected LinkedList<Block> blocks;
-        protected LinkedList<Process> processes;
+        protected static LinkedList<Block> blocks;
+        protected static LinkedList<Process> processes;
 
         public CommonUtils(){
             blocks = new LinkedList<>();
@@ -147,11 +147,31 @@ public class MemoryPlacementStrategies {
 
     public static void main(String[] args) {
 
-        WorstFit ff = new WorstFit();
-        ff.setBlocks(5);
-        ff.setProcesses(4);
+        CommonUtils cu = new CommonUtils();
+
+        FirstFit ff = new FirstFit();
+        NextFit nf = new NextFit();
+        BestFit bf = new BestFit();
+        WorstFit wf = new WorstFit();
+
+        cu.setBlocks(5);
+        cu.setProcesses(5);
+
+        System.out.println("*********************************** First Fit *******************************************");
         ff.applyAlgorithm();
         ff.getResults();
+        System.out.println("*********************************** Next Fit *******************************************");
+        nf.applyAlgorithm();
+        nf.getResults();
+        System.out.println("*********************************** Best Fit *******************************************");
+        bf.applyAlgorithm();
+        bf.getResults();
+        System.out.println("*********************************** Worst Fit *******************************************");
+        wf.applyAlgorithm();
+        wf.getResults();
+
+
+
 
     }
 
