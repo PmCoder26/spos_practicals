@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c1b4003c-464b-4b51-8f4d-d8f3d6b862ee" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/MemoryPlacementStrategies.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MemoryPlacementStrategies.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PageReplacementAlogs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PageReplacementAlogs.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,16 +54,16 @@
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.MemoryPlacementStrategies">
-    <configuration name="FCFS_Scheduling" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="FCFS_Scheduling" />
+  <component name="RunManager" selected="Application.PageReplacementAlogs">
+    <configuration name="MemoryPlacementStrategies" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="MemoryPlacementStrategies" />
       <module name="SPOS_Assignments" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MemoryPlacementStrategies" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="MemoryPlacementStrategies" />
+    <configuration name="PageReplacementAlogs" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="PageReplacementAlogs" />
       <module name="SPOS_Assignments" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -92,11 +92,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.PageReplacementAlogs" />
         <item itemvalue="Application.MemoryPlacementStrategies" />
         <item itemvalue="Application.SJF_Scheduling" />
         <item itemvalue="Application.Round_Robin" />
         <item itemvalue="Application.PriorityScheduling" />
-        <item itemvalue="Application.FCFS_Scheduling" />
       </list>
     </recent_temporary>
   </component>

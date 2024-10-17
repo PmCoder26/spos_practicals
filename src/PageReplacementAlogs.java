@@ -207,14 +207,18 @@ public class PageReplacementAlogs {
     }
 
     public static void main(String[] args){
-//        FIFO f = new FIFO();
-//        f.performAlgorithm();
-//        f.showResult();
-//
-//        LRU l = new LRU();
-//        l.performAlgorithm();
-//        l.showResult();
 
+        System.out.println("*********************************** FIFO *******************************************");
+        FIFO f = new FIFO();
+        f.performAlgorithm();
+        f.showResult();
+
+        System.out.println("*********************************** LRU *******************************************");
+        LRU l = new LRU();
+        l.performAlgorithm();
+        l.showResult();
+
+        System.out.println("*********************************** OPT *******************************************");
         OPT o = new OPT();
         o.performAlgorithm();
         o.showResult();
