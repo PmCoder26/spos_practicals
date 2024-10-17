@@ -40,7 +40,7 @@ public class FCFS_Scheduling {
         for(int x = 0; x < processes.size(); x++){
             Process process = processes.get(x);
             process.st = serviceTime;
-            process.wt = process.st - process.at;
+            process.wt = Math.abs(process.st - process.at);
             process.tat = process.wt + process.bt;
             serviceTime += process.bt;
         }
@@ -55,7 +55,7 @@ public class FCFS_Scheduling {
     private static void showResults() {
         System.out.println("Process\t\tArrival Time\t\tBurst Time\t\tService Time\t\tWaiting Time\t\tTurnAround Time");
         for (Process process : processes) {
-            System.out.println(process.index + "\t\t\t\t" + process.at + "\t\t\t\t" + process.bt + "\t\t\t\t" + process.st + "\t\t\t\t" + process.wt + "\t\t\t\t" + process.tat);
+            System.out.println(process.index + "\t\t\t\t" + process.at + "\t\t\t\t\t\t" + process.bt + "\t\t\t\t" + process.st + "\t\t\t\t" + process.wt + "\t\t\t\t\t\t" + process.tat);
         }
     }
 

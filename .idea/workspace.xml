@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="c1b4003c-464b-4b51-8f4d-d8f3d6b862ee" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Round_Robin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Round_Robin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FCFS_Scheduling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FCFS_Scheduling.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PriorityScheduling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PriorityScheduling.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +37,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.FCFS_Scheduling.executor": "Run",
     "Application.MemoryPlacementStrategies.executor": "Run",
     "Application.PageReplacementAlogs.executor": "Run",
     "Application.PriorityScheduling.executor": "Run",
@@ -54,9 +56,9 @@
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Round_Robin">
-    <configuration name="MemoryPlacementStrategies" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="MemoryPlacementStrategies" />
+  <component name="RunManager" selected="Application.SJF_Scheduling">
+    <configuration name="FCFS_Scheduling" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="FCFS_Scheduling" />
       <module name="SPOS_Assignments" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -92,11 +94,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Round_Robin" />
         <item itemvalue="Application.SJF_Scheduling" />
+        <item itemvalue="Application.Round_Robin" />
         <item itemvalue="Application.PriorityScheduling" />
+        <item itemvalue="Application.FCFS_Scheduling" />
         <item itemvalue="Application.PageReplacementAlogs" />
-        <item itemvalue="Application.MemoryPlacementStrategies" />
       </list>
     </recent_temporary>
   </component>

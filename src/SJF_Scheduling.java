@@ -104,7 +104,7 @@ public class SJF_Scheduling {
         }
         for(Process process : processes){
             process.tat = process.ct - process.at;
-            process.wt = process.tat - process.bt;
+            process.wt = Math.abs(process.tat - process.bt);
             process.rt = process.cpuFirstTime - process.at;
         }
     }

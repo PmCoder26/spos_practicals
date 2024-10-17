@@ -87,7 +87,7 @@ public class Round_Robin {
         }
         for(Process process : processes){
             process.tat = process.rt - process.at;
-            process.wt = process.tat - process.bt;
+            process.wt = Math.abs(process.tat - process.bt);
         }
     }
 

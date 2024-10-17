@@ -83,7 +83,7 @@ public class PriorityScheduling {
                 process.isProcessed = true;
                 currentTime += process.bt;
                 process.tat = currentTime - process.at;
-                process.wt = process.tat - process.bt;
+                process.wt = Math.abs(process.tat - process.bt);
             }
             processesToExecute = getProcessedByPtAndAt(processes);
         }
@@ -91,10 +91,10 @@ public class PriorityScheduling {
 
     private static void showResults(){
         processes.sort(Process::compareByIdx);
-        System.out.println("Index\tAT\tBT\tPriority\tTAT\tWT");
+        System.out.println("Index\tAT\tBT\tPriority\tTAT\t\tWT");
         for(int x = 0; x < processes.size(); x++){
             Process process = processes.get(x);
-            System.out.println(process.index + " " + process.at + " " + process.bt + " " + process.p + " " + process.tat + " " + process.wt);
+            System.out.println(process.index + "\t\t" + process.at + "   " + process.bt + "\t\t" + process.p + "\t\t" + process.tat + "\t\t" + process.wt);
         }
     }
 
