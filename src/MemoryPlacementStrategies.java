@@ -22,7 +22,7 @@ public class MemoryPlacementStrategies {
         }
 
         public void printProcesses(){
-            for (Process process : processes) {
+            for (Process process : this.processes) {
                 System.out.println("Id: " + process.id + ", Memory: " + process.memory);
             }
         }
@@ -74,6 +74,7 @@ public class MemoryPlacementStrategies {
                     if (block.memory >= process.memory) {
                         block.addProcess(process);
                         block.memory = block.memory - process.memory;
+                        block.printProcesses();
                         break;
                     }
                 }
@@ -90,11 +91,11 @@ public class MemoryPlacementStrategies {
                     if (block.memory >= process.memory) {
                         block.addProcess(process);
                         block.memory = block.memory - process.memory;
-                        idx = y;
+                        idx = y + 1;
                         break;
                     }
                 }
-                if (idx == blocks.size() - 1) {
+                if (idx == blocks.size()) {
                     idx = 0;
                 }
             }
@@ -129,7 +130,7 @@ public class MemoryPlacementStrategies {
                 int maxMemoryIdx = -1;
                 for (int y = 0; y < blocks.size(); y++) {
                     Block block = blocks.get(y);
-                    if (maxMemoryIdx < block.memory && block.memory >= process.memory) {
+                    if (maxMemory < block.memory && block.memory >= process.memory) {
                         maxMemory = block.memory;
                         maxMemoryIdx = y;
                     }
@@ -155,20 +156,20 @@ public class MemoryPlacementStrategies {
         WorstFit wf = new WorstFit();
 
         cu.setBlocks(5);
-        cu.setProcesses(5);
+        cu.setProcesses(3);
 
-        System.out.println("*********************************** First Fit *******************************************");
-        ff.applyAlgorithm();
-        ff.getResults();
+//        System.out.println("*********************************** First Fit *******************************************");
+//        ff.applyAlgorithm();
+//        ff.getResults();
         System.out.println("*********************************** Next Fit *******************************************");
         nf.applyAlgorithm();
         nf.getResults();
-        System.out.println("*********************************** Best Fit *******************************************");
-        bf.applyAlgorithm();
-        bf.getResults();
-        System.out.println("*********************************** Worst Fit *******************************************");
-        wf.applyAlgorithm();
-        wf.getResults();
+//        System.out.println("*********************************** Best Fit *******************************************");
+//        bf.applyAlgorithm();
+//        bf.getResults();
+//        System.out.println("*********************************** Worst Fit *******************************************");
+//        wf.applyAlgorithm();
+//        wf.getResults();
 
 
 
