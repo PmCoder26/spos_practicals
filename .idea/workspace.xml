@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c1b4003c-464b-4b51-8f4d-d8f3d6b862ee" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MemoryPlacementStrategies.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MemoryPlacementStrategies.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PageReplacementAlogs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PageReplacementAlogs.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,28 +34,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.FCFS_Scheduling.executor&quot;: &quot;Run&quot;,
-    &quot;Application.MemoryPlacementStrategies.executor&quot;: &quot;Run&quot;,
-    &quot;Application.PageReplacementAlogs.executor&quot;: &quot;Run&quot;,
-    &quot;Application.PriorityScheduling.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Round_Robin.executor&quot;: &quot;Run&quot;,
-    &quot;Application.SJF_Scheduling.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/parimal/SPOS_Assignments&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.completion&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.FCFS_Scheduling.executor": "Run",
+    "Application.MemoryPlacementStrategies.executor": "Run",
+    "Application.PageReplacementAlogs (1).executor": "Run",
+    "Application.PageReplacementAlogs.executor": "Run",
+    "Application.PriorityScheduling.executor": "Run",
+    "Application.Round_Robin.executor": "Run",
+    "Application.SJF_Scheduling.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/parimal/SPOS_Assignments",
+    "settings.editor.selected.configurable": "editor.preferences.completion"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.MemoryPlacementStrategies">
+  <component name="RunManager" selected="Application.PageReplacementAlogs (1)">
     <configuration name="MemoryPlacementStrategies" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="MemoryPlacementStrategies" />
       <module name="SPOS_Assignments" />
@@ -63,15 +64,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PageReplacementAlogs" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="PageReplacementAlogs (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="PageReplacementAlogs" />
       <module name="SPOS_Assignments" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PriorityScheduling" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="PriorityScheduling" />
+    <configuration name="PageReplacementAlogs" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="PageReplacementAlogs" />
       <module name="SPOS_Assignments" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -93,11 +94,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.PageReplacementAlogs (1)" />
         <item itemvalue="Application.MemoryPlacementStrategies" />
         <item itemvalue="Application.PageReplacementAlogs" />
         <item itemvalue="Application.SJF_Scheduling" />
         <item itemvalue="Application.Round_Robin" />
-        <item itemvalue="Application.PriorityScheduling" />
       </list>
     </recent_temporary>
   </component>
