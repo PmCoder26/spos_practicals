@@ -30,7 +30,6 @@ public class MemoryPlacementStrategies {
         public void addProcess(Process process){
             processes.add(process);
         }
-
     }
 
     private static class CommonUtils {
@@ -74,7 +73,6 @@ public class MemoryPlacementStrategies {
                     if (block.memory >= process.memory) {
                         block.addProcess(process);
                         block.memory = block.memory - process.memory;
-                        block.printProcesses();
                         break;
                     }
                 }

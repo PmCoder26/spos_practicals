@@ -59,7 +59,7 @@ public class PageReplacementAlogs {
                 boolean isInserted = false;
                 for(int x = 0; x < result.length; x++){
                     if(result[x][j] == -1){
-                        isFault = true;
+//                        isFault = true;
                         faults++;
                         result[x][j] = num;
                         isInserted = true;
@@ -102,7 +102,6 @@ public class PageReplacementAlogs {
             pageSequenceRecord = new LinkedList<>();
         }
 
-
         @Override
         public void performAlgorithm() {
             int j = 0;
@@ -112,10 +111,10 @@ public class PageReplacementAlogs {
                 boolean isInserted = false;
                 for(int x = 0; x < result.length; x++){
                     if(result[x][j] == -1){
-                        isFault = true;
-                        faults++;
-                        result[x][j] = num;
                         isInserted = true;
+                        result[x][j] = num;
+                        pageSequenceRecord.addLast(num);
+                        faults++;
                         break;
                     }
                     else if(result[x][j] == num){
@@ -124,14 +123,11 @@ public class PageReplacementAlogs {
                         break;
                     }
                 }
-                if(isFault && isInserted){
-                    pageSequenceRecord.addLast(num);
-                }
-                else if(!isFault){
+                if(!isFault){
                     pageSequenceRecord.remove(num);
                     pageSequenceRecord.addLast(num);
                 }
-                else {       // isFault and !isInserted.
+                else if(!isInserted){       // isFault and !isInserted.
                     int n = pageSequenceRecord.removeFirst();
                     for(int x = 0; x < result.length; x++){
                         if(result[x][j] == n){
